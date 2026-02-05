@@ -1,45 +1,64 @@
-# 📍 콕콕 (KOK-KOK)
-> **"반석 위에 세워진 우리 가족 신앙 놀이터"** > 교회 전 세대 통합 신앙 관리 플랫폼
+# 콕콕 (KOK-KOK) 🎯
+**"반석 위에 세워진 우리 가족 신앙 놀이터"**  
+전 세대(주일학교, 중고등부, 장년부)를 아우르는 교회 출석 및 신앙 관리 통합 플랫폼입니다.
+
+![Project Banner](https://via.placeholder.com/1200x400?text=KOK-KOK+Platform)
+
+## ✨ 주요 기능 (Features)
+| 모드 | 대상 | 주요 기능 | 테마 색상 |
+|---|---|---|---|
+| **Kids** | 주일학교 | QR 출석, 달란트 확인, 칭찬 도장 | 🟡 Yellow |
+| **Teens** | 중고등부 | 실시간 랭킹 시스템, 티어(Tier) 관리 | 🟢 Neon Green |
+| **Classic** | 장년부 | 성경 1독 체크리스트, 중보기도 릴레이 | 🔵 Dark Navy |
+| **Teacher** | 선생님 | QR 스캔 앱, 출석/적립 원터치 처리 | ⚪️ Default |
+
+## 🛠 기술 스택 (Tech Stack)
+- **Framework**: Next.js 14+ (App Router)
+- **Database**: Supabase (PostgreSQL)
+- **Styling**: Tailwind CSS, shadcn/ui
+- **PWA**: `next-pwa` (모바일 앱 설치 지원)
+- **Deployment**: Vercel (권장)
 
 ---
 
-## 🌟 Service Overview
-**콕콕(KOK-KOK)**은 교회의 다음 세대부터 장년층까지, 모든 성도가 하나의 앱 안에서 신앙 생활을 즐겁게 기록하고 공유하는 **All-in-One 신앙 플랫폼**입니다.
+## 🚀 배포 가이드 (Deployment Guide)
 
-- **Kids Of King:** 왕의 자녀들을 위한 특별한 보상 시스템
-- **Point of Faith:** 신앙의 핵심을 '콕콕' 집어주는 데이터 관리
+### 1단계: Supabase 설정
+1. [Supabase](https://supabase.com) 프로젝트 생성
+2. **SQL Editor**로 이동하여 다음 스크립트를 순서대로 실행하세요. (`/supabase` 폴더 내에 위치)
+    - `schema.sql`: 기본 테이블 생성 (`attendance_logs`, `points`, `profiles`) (처음 1회만)
+    - `fix_mvp_data.sql`: 테스트 데이터 생성 및 FK 제약 해제 (MVP 테스트용)
+    - `multi_tenancy.sql`: B2B 확장을 위한 `church_id` 추가 (선택 사항)
 
-## ✨ Key Features by Generation
+### 2단계: 환경 변수 설정 (.env.local)
+프로젝트 루트에 `.env.local` 파일을 생성하고 Supabase 정보를 입력합니다.
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-### 🧒 콕콕 Kids (초등부)
-- **디지털 달란트:** 요절 암송, 출석 등으로 쌓는 나만의 보물상자
-- **QR 출석 체크:** 1초 만에 끝나는 스마트한 예배 입장
-- **캐릭터 성장:** 신앙 활동에 따라 변하는 나만의 아바타
+### 3단계: 로컬 실행
+```bash
+npm install
+npm run dev
+```
+- 브라우저에서 `http://localhost:3000` 접속
 
-### 🧑 콕콕 Teens (중·고등부)
-- **신앙 티어:** 활동 점수에 따라 실버에서 다이아까지 랭킹 시스템
-- **기프티콘 몰:** 모은 포인트로 즉시 교환하는 편의점/마라탕 쿠폰
-
-### 🏃 콕콕 Mate (청년부)
-- **갓생 챌린지:** 매일 말씀 묵상, 운동 기록 인증 루틴
-- **커리어 멘토링:** 교회 선배들과 연결되는 직무 멘토링 신청
-
-### 👴 콕콕 Classic (장년부)
-- **은혜의 기록:** 성경 통독, 필사 기록 및 만보기 건강 관리
-- **세대 간 선물:** 손주/자녀에게 내 포인트를 달란트로 선물하기
-
----
-
-## 🛠 Tech Stack
-- **Frontend:** Next.js 14+ (App Router, PWA)
-- **Backend:** Supabase (Auth, Realtime DB, Storage)
-- **Deployment:** Vercel / Cloudflare Pages
-- **Styling:** Tailwind CSS
+### 4단계: 프로덕션 배포 (Vercel)
+1. GitHub 저장소를 Vercel에 연동
+2. Environment Variables에 위 `.env.local` 내용 등록
+3. **Build Command**: `next build --webpack` (중요: PWA 호환성을 위해 webpack 플래그 필수)
+4. Deploy!
 
 ---
 
-## 🚀 Getting Started
+## 📱 PWA 설치 방법
+1. 모바일 브라우저(Safari/Chrome)로 배포된 사이트 접속
+2. **공유하기** -> **홈 화면에 추가** 클릭
+3. 앱처럼 아이콘이 생성되고, 전체 화면 모드로 실행됩니다.
 
-1. **Clone the repository**
-   ```bash
-   git clone [https://github.com/사용자계정/kok-kok.git](https://github.com/사용자계정/kok-kok.git)
+## 🤝 기여 (Contributing)
+이 프로젝트는 서울반석교회를 위해 제작되었습니다. 기능 제안이나 버그 제보는 Issue를 등록해주세요.
+
+---
+**Developers**: Gemini Agent & User Pair Programming 🤖❤️🧑‍💻
