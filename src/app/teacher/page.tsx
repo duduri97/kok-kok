@@ -21,16 +21,18 @@ export default function TeacherPage() {
                     </Card>
                 </Link>
 
-                <Card className="opacity-50">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Users className="w-6 h-6" /> 반 관리 (준비중)
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-muted-foreground">우리 반 학생 목록과 출석 현황을 확인합니다.</p>
-                    </CardContent>
-                </Card>
+                <Link href="/teacher/class" className="block">
+                    <Card className="hover:bg-slate-50 transition-colors cursor-pointer border-2 hover:border-primary">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Users className="w-6 h-6" /> 반 관리
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-muted-foreground">우리 반 학생 목록과 출석 현황을 확인합니다.</p>
+                        </CardContent>
+                    </Card>
+                </Link>
             </div>
         </div>
     );
